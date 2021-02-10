@@ -25,6 +25,7 @@ class SpeedDialChild {
   final VoidCallback onTap;
   final VoidCallback onLongPress;
   final ShapeBorder shape;
+  final EdgeInsetsGeometry margin;
 
   SpeedDialChild({
     this.key,
@@ -39,5 +40,6 @@ class SpeedDialChild {
     this.onTap,
     this.onLongPress,
     this.shape,
+    this.margin
   });
 }

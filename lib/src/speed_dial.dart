@@ -100,6 +100,9 @@ class SpeedDial extends StatefulWidget {
   /// The image of the main button, ignored if [animatedIcon] is non [null] and ignored if [icon] is non [null]
   final Image imageIcon;
 
+  /// The box decoration for the active main button
+  final BoxDecoration activeIconBoxDecoration;
+
   SpeedDial({
     this.key,
     this.children = const [],
@@ -135,7 +138,8 @@ class SpeedDial extends StatefulWidget {
     this.openCloseDial,
     this.childMarginBottom = 0,
     this.childMarginTop = 0,
-    this.imageIcon
+    this.imageIcon,
+    this.activeIconBoxDecoration
   });
 
   @override
@@ -219,30 +223,33 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
             ),
           );
 
-          return AnimatedChild(
-            animation: childAnimation,
-            index: index,
-            key: child.key,
-            visible: _open,
-            dark: widget._dark,
-            backgroundColor: child.backgroundColor,
-            foregroundColor: child.foregroundColor,
-            elevation: child.elevation,
-            buttonSize: widget.buttonSize,
-            child: child.child,
-            label: child.label,
-            labelStyle: child.labelStyle,
-            labelBackgroundColor: child.labelBackgroundColor,
-            labelWidget: child.labelWidget,
-            onTap: child.onTap,
-            onLongPress: child.onLongPress,
-            toggleChildren: () {
-              if (!widget.closeManually) _toggleChildren();
-            },
-            shape: child.shape,
-            heroTag: widget.heroTag != null ? '${widget.heroTag}-child-$index' : null,
-            childMarginBottom: widget.childMarginBottom,
-            childMarginTop: widget.childMarginTop,
+          return Container(
+            margin: child.margin,
+            child: AnimatedChild(
+              animation: childAnimation,
+              index: index,
+              key: child.key,
+              visible: _open,
+              dark: widget._dark,
+              backgroundColor: child.backgroundColor,
+              foregroundColor: child.foregroundColor,
+              elevation: child.elevation,
+              buttonSize: widget.buttonSize,
+              child: child.child,
+              label: child.label,
+              labelStyle: child.labelStyle,
+              labelBackgroundColor: child.labelBackgroundColor,
+              labelWidget: child.labelWidget,
+              onTap: child.onTap,
+              onLongPress: child.onLongPress,
+              toggleChildren: () {
+                if (!widget.closeManually) _toggleChildren();
+              },
+              shape: child.shape,
+              heroTag: widget.heroTag != null ? '${widget.heroTag}-child-$index' : null,
+              childMarginBottom: widget.childMarginBottom,
+              childMarginTop: widget.childMarginTop,
+            )
           );
         })
         .toList()
@@ -366,6 +373,7 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
               children: List.from(fabChildren)
                 ..add(Container(
                   margin: EdgeInsetsDirectional.only(top: 8.0, end: 2.0),
+                  decoration: _open ? widget.activeIconBoxDecoration : null,
                   child: animatedFloatingButton,
                 )),
             ),
