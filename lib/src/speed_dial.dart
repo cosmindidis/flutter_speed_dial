@@ -97,6 +97,9 @@ class SpeedDial extends StatefulWidget {
   /// The orientation of the children. Default is [SpeedDialOrientation.Up]
   final SpeedDialOrientation orientation;
 
+  /// The image of the main button, ignored if [animatedIcon] is non [null] and ignored if [icon] is non [null]
+  final Image imageIcon;
+
   SpeedDial({
     this.key,
     this.children = const [],
@@ -132,6 +135,7 @@ class SpeedDial extends StatefulWidget {
     this.openCloseDial,
     this.childMarginBottom = 0,
     this.childMarginTop = 0,
+    this.imageIcon
   });
 
   @override
@@ -278,12 +282,14 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: widget.animationSpeed),
                 child: (!_open || widget.activeIcon == null || _controller.value < 0.5)
-                    ? Icon(
-                        widget.icon,
-                        key: ValueKey<int>(0),
-                        color: widget.iconTheme?.color,
-                        size: widget.iconTheme?.size,
-                      )
+                    ? widget.icon != null 
+                      ? Icon(
+                          widget.icon,
+                          key: ValueKey<int>(0),
+                          color: widget.iconTheme?.color,
+                          size: widget.iconTheme?.size,
+                        )
+                      : widget.imageIcon
                     : Transform.rotate(
                         angle: -pi / 2,
                         child: Icon(
