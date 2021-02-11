@@ -101,7 +101,7 @@ class SpeedDial extends StatefulWidget {
   final Image imageIcon;
 
   /// The box decoration for the active main button
-  final BoxDecoration activeIconBoxDecoration;
+  final BoxDecoration iconBoxDecoration;
 
   SpeedDial({
     this.key,
@@ -139,7 +139,7 @@ class SpeedDial extends StatefulWidget {
     this.childMarginBottom = 0,
     this.childMarginTop = 0,
     this.imageIcon,
-    this.activeIconBoxDecoration
+    this.iconBoxDecoration
   });
 
   @override
@@ -373,7 +373,7 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
               children: List.from(fabChildren)
                 ..add(Container(
                   margin: EdgeInsetsDirectional.only(top: 8.0, end: 2.0),
-                  decoration: _open ? widget.activeIconBoxDecoration : null,
+                  decoration: widget.iconBoxDecoration,
                   child: animatedFloatingButton,
                 )),
             ),
